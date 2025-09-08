@@ -7,9 +7,17 @@ import { toast, Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 const Auth = () => {
-    // On page load: clear all localStorage to remove old tokens and user data
+    // On page load: set default values only if they don't exist
     useEffect(() => {
-        localStorage.clear();
+        if (!localStorage.getItem('access_token')) {
+            localStorage.setItem('access_token', '');
+        }
+        if (!localStorage.getItem('refresh_token')) {
+            localStorage.setItem('refresh_token', '');
+        }
+        if (!localStorage.getItem('user')) {
+            localStorage.setItem('user', JSON.stringify({}));
+        }
     }, []);
     const [email, setEmail] = useState('');
     const [emailError, setEmailError] = useState('');
